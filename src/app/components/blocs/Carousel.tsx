@@ -63,7 +63,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, country }) => {
   useEffect(() => {
     if (carouselRef.current) {
       const width = carouselRef.current.offsetWidth;
-      const scrollPosition = width * 0.42; // Start position so that the scroll position is at 5%
+      const scrollPosition = width * 0.42; // Start position for the carousel
       carouselRef.current.scrollLeft = scrollPosition;
     }
   }, []);

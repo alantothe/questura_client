@@ -55,7 +55,7 @@ const NavBar = () => {
       <div className="flex justify-center mb-4 sm:mb-0">
         <Link href="/colombia">
           <img
-            src="https://res.cloudinary.com/dzjr3skhe/image/upload/v1718389628/logo-men-06-14_at_1.41.03_PM-removebg-preview_chljyv.png"
+            src="https://res.cloudinary.com/dakv9lakh/image/upload/v1727728243/Questura_Logo_001_lxmyql.svg"
             alt="Logo"
             className={imgSize}
           />
