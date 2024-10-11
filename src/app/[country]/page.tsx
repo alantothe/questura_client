@@ -19,7 +19,7 @@ const Country: React.FC = () => {
   return (
     <div>
       <div className="w-full overflow-hidden">
-        <Carousel images={images} country={country} />
+        {/* <Carousel images={images} country={country} /> */}
         <Destinations />
         <Explore />
         <Testimonials />
