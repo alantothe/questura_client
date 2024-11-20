@@ -39,42 +39,54 @@ const destinations = [
     url: "https://calendly.com/mentuition/mentuition-movement-personal-travel-guide?back=1&month=2024-06",
   },
 ];
+type City = {
+  name: string;
+  photo: string;
+  pricesInCents: number;
+  _id: string;
+};
+type DestinationsProps = {
+  cities: City[];
+  continent: string;
+  country: string;
+};
 
-const Destinations: React.FC = () => {
+const Destinations: React.FC<DestinationsProps> = ({
+  cities,
+  continent,
+  country,
+}) => {
   return (
-    <div className="py-10 lg:py-24 mb-2 mx-auto lg:mx-40">
-      <h2 className="px-2 text-4xl lg:text-7xl font-bold font-weight-100 mb-8 text-black">
+    <div className="container mx-auto px-4 py-10 lg:py-24">
+      <h2 className="text-4xl lg:text-7xl font-bold mb-8 text-black">
         OUR TOUR DESTINATIONS
       </h2>
 
-      <div className="flex overflow-x-scroll lg:overflow-x-visible space-x-4 scrollbar-hide">
-        {destinations.map((destination) => (
-          <Link
-            href={destination.url}
-            passHref
-            key={destination.name}
-            legacyBehavior
-          >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 overflow-x-auto lg:overflow-x-visible scrollbar-hide">
+        {cities.map((cities) => (
+          <Link href={cities.photo} passHref key={cities.name} legacyBehavior>
             <a
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 w-80 lg:w-1/4 px-2 mb-4"
+              className="flex-shrink-0 w-80 lg:w-full"
             >
-              <div className="flex overflow-hidden rounded-lg">
-                <DirectionAwareHover imageUrl={destination.image}>
-                  <div className="flex flex-col items-center sm:items-start text-center sm:text-left p-4 sm:p-6">
-                    <p className="font-bold text-xl">{destination.name}</p>
-                    <p className="font-normal text-sm">
-                      Prices starting at ${destination.CheapestItem}
+              <div className="overflow-hidden rounded-lg">
+                <DirectionAwareHover imageUrl={cities.photo}>
+                  <div className="flex flex-col items-center sm:items-start text-center sm:text-left p-4 lg:p-6">
+                    <p className="font-bold text-xl lg:text-2xl">
+                      {cities.name}
+                    </p>
+                    <p className="font-normal text-sm lg:text-base">
+                      Prices starting at ${cities.pricesInCents}
                     </p>
                   </div>
                 </DirectionAwareHover>
               </div>
-              <h3 className="text-black font-bold text-base md:text-lg lg:text-xl">
-                {destination.name}
+              <h3 className="mt-2 text-black font-bold text-base md:text-lg lg:text-2xl">
+                {cities.name}
               </h3>
-              <div className="flex font-thin text-base">
-                <p className="text-black">{`${destination.Country}, ${destination.Continent}`}</p>
+              <div className="text-base lg:text-lg font-thin">
+                <p className="text-black">{`${country}, ${continent}`}</p>
               </div>
             </a>
           </Link>
