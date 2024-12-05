@@ -1,7 +1,11 @@
-// app/page.js
-import { notFound } from "next/navigation";
+import MyMap from "./components/map/MyMap";
+import WorldMap from "./components/map/WorldMap";
 
 export default function Home() {
-  notFound();
-  return null;
+  return (
+    <main>
+      <MyMap />
+      <WorldMap />
+    </main>
+  );
 }

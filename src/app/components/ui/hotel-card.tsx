@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Image from "next/image";
 // define the type for hotel data
 type HotelCard = {
   id: string;
@@ -119,11 +119,13 @@ const HotelCard = () => {
           >
             {/* image container */}
             <div className="relative h-[400px] w-full">
-              <img
+              <Image
                 src={hotel.image}
                 alt={hotel.name}
-                className="object-cover w-full h-full"
-                style={{ objectPosition: "50% 50%" }}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+                priority={currentSlide === 0}
               />
               <button className="absolute top-4 right-4 p-2 rounded-full bg-white/80 hover:bg-white transition-colors">
                 <svg
@@ -145,11 +147,6 @@ const HotelCard = () => {
             {/* content section */}
             <div className="p-4 h-[200px] flex flex-col justify-between">
               <div>
-                {/* location badge - new addition */}
-                <span className="inline-block px-2 py-1 mb-2 text-sm bg-gray-100 text-gray-600 rounded">
-                  {hotel.location}
-                </span>
-
                 <h3 className="text-lg font-semibold mb-2 line-clamp-2 text-black">
                   {hotel.name}
                 </h3>
@@ -189,8 +186,52 @@ const HotelCard = () => {
         ))}
       </div>
 
-      {/* navigation buttons remain the same */}
-      {/* ... copy the navigation buttons from the original Card component ... */}
+      {/* navigation buttons */}
+      <button
+        onClick={handlePrevSlide}
+        disabled={currentSlide === 0}
+        className={`absolute left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white transition-colors ${
+          currentSlide === 0 ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+
+      <button
+        onClick={handleNextSlide}
+        disabled={currentSlide === totalSlides - 1}
+        className={`absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white transition-colors ${
+          currentSlide === totalSlides - 1
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }`}
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
     </div>
   );
 };
