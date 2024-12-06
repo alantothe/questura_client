@@ -13,80 +13,107 @@ const json = "/world-countries.json";
 
 const MyMap = () => {
   const countriesMap = new Map();
-  countriesMap.set("Peru", { zoom: 6, buttonCoordinates: [null, null] });
+  countriesMap.set("Peru", {
+    zoom: 6,
+    buttonCoordinates: [-85.43056901477354, -10.147133411380077],
+  });
   countriesMap.set("Colombia", {
     zoom: 6,
     buttonCoordinates: [-88.07345714315186, 3.9163468591418087],
   });
-  countriesMap.set("Brazil", { zoom: 3.2, buttonCoordinates: [null, null] });
-  countriesMap.set("Dominican Rep.", {
-    zoom: 6,
-    buttonCoordinates: [null, null],
+  countriesMap.set("Brazil", {
+    zoom: 3.2,
+    buttonCoordinates: [-25.17252777972014, -10.655474918772201],
   });
-  console.log(countriesMap);
-  const [currentCountry, setCurrentCountry] = useState("");
-  const [buttonCoordinates, setButtonCoordinates] = useState([]);
+  countriesMap.set("Dominican Rep.", {
+    zoom: 9,
+    buttonCoordinates: [-56.46185863870569, 18.885420716111305],
+  });
+
+  const [currentCountry, setCurrentCountry] = useState<string | null>(null);
+  const [buttonCoordinates, setButtonCoordinates] = useState<[number, number]>([
+    0, 0,
+  ]);
   const [isZoomed, setIsZoomed] = useState(false);
   const [position, setPosition] = useState({
     coordinates: [65, 10],
     zoom: 1.5,
   });
+
   const handleCountryClick = (country: any) => {
-    // geoCentroid finds the middle of country, returns array
     const middle = geoCentroid(country);
     const mapData = countriesMap.get(country.properties.name);
-    // negative values because of how the globe rotation works
+    setButtonCoordinates(mapData.buttonCoordinates);
     setPosition({
       coordinates: [-middle[0], -middle[1]],
       zoom: mapData.zoom,
     });
     setIsZoomed(true);
+    setCurrentCountry(country.properties.name);
   };
+
   return (
     <div className="w-1/2 h-[600px]">
-      <button className="text-black">Reset View</button>
       <ComposableMap
         projection={"geoOrthographic"}
         projectionConfig={{
-          //scale, controls the globe size
           scale: 200 * position.zoom,
-          //rotate, is the map starting position
-          // [Longitude, Latitude, Roll ]
           rotate: [position.coordinates[0], position.coordinates[1], 0],
         }}
       >
         <Sphere id="sphere" fill="#1B1B35" stroke="#000000" strokeWidth={2} />
+        {/* Base Layer */}
+        <Geographies geography={json}>
+          {({ geographies }) =>
+            geographies.map((country) => (
+              <Geography
+                key={country.rsmKey}
+                geography={country}
+                stroke="#3C3A4F"
+                strokeWidth={0.5}
+                style={{
+                  default: { fill: "#565371" },
+                  hover: { fill: "#565371" },
+                  pressed: { fill: "#565371" },
+                }}
+              />
+            ))
+          }
+        </Geographies>
         <Geographies geography={json}>
           {({ geographies }) =>
             geographies.map((country) => {
               const isTargetCountry = countriesMap.has(country.properties.name);
-              if (isTargetCountry) {
-                setCurrentCountry(country.properties.name);
-              }
+              const isCurrent = currentCountry === country.properties.name;
+
+              if (!isTargetCountry) return null;
+
               return (
                 <Geography
+                  key={`target-${country.rsmKey}`}
                   geography={country}
-                  key={country.rsmKey}
-                  stroke="#3C3A4F"
+                  stroke="#FFFFFF"
+                  strokeWidth={1}
                   style={{
-                    default: { fill: isTargetCountry ? "#9B97BF" : "#565371" },
-                    hover: { fill: isTargetCountry ? "#04D" : "#565371" },
-                    pressed: { fill: "#02A" },
+                    default: { fill: isCurrent ? "#9B97BF" : "#565371" },
+                    hover: { fill: isZoomed ? "#565371" : "#04D" },
+                    pressed: { fill: isCurrent ? "#02A" : "#565371" },
                   }}
-                  onClick={() => {
-                    handleCountryClick(country);
-                  }}
+                  onClick={() =>
+                    isZoomed ? null : handleCountryClick(country)
+                  }
                 />
               );
             })
           }
         </Geographies>
         {isZoomed ? (
-          <Marker coordinates={[-88.07345714315186, 3.9163468591418087]}>
+          <Marker coordinates={buttonCoordinates}>
             <g
               onClick={() => {
                 setPosition({ coordinates: [65, 10], zoom: 1.5 });
                 setIsZoomed(false);
+                setCurrentCountry(null);
               }}
               className="cursor-pointer"
             >
