@@ -5,7 +5,7 @@ import {
   Geographies,
   Geography,
   Sphere,
-  Annotation,
+  Marker,
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 
@@ -15,7 +15,7 @@ const MyMap = () => {
   const countriesMap = new Map();
   countriesMap.set("Peru", { zoom: 6, buttonCoordinates: [null, null] });
   countriesMap.set("Colombia", { zoom: 6, buttonCoordinates: [null, null] });
-  countriesMap.set("Brazil", { zoom: 2, buttonCoordinates: [null, null] });
+  countriesMap.set("Brazil", { zoom: 3.2, buttonCoordinates: [null, null] });
   countriesMap.set("Dominican Rep.", {
     zoom: 6,
     buttonCoordinates: [null, null],
@@ -27,15 +27,15 @@ const MyMap = () => {
     // geoCentroid finds the middle of country, returns array
     const middle = geoCentroid(country);
     const mapData = countriesMap.get(country.properties.name);
-    console.log(mapData.zoom);
     // negative values because of how the globe rotation works
     setPosition({
       coordinates: [-middle[0], -middle[1]],
       zoom: mapData.zoom,
     });
+    setIsZoomed(true);
   };
   return (
-    <div>
+    <div className="w-1/2 h-[600px]">
       <button className="text-black">Reset View</button>
       <ComposableMap
         projection={"geoOrthographic"}
@@ -70,6 +70,13 @@ const MyMap = () => {
             })
           }
         </Geographies>
+        {isZoomed ? (
+          <Marker coordinates={[-73.07345714315186, 3.9163468591418087]}>
+            <text textAnchor="middle" fill="#F53">
+              Colombia
+            </text>
+          </Marker>
+        ) : null}
       </ComposableMap>
     </div>
   );
