@@ -5,27 +5,38 @@ import {
   Geographies,
   Geography,
   Sphere,
+  Annotation,
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 
 const json = "/world-countries.json";
 
 const MyMap = () => {
-  const validCountries = ["Peru", "Colombia", "Brazil", "Dominican Rep."];
+  const countriesMap = new Map();
+  countriesMap.set("Peru", { zoom: 6, buttonCoordinates: [null, null] });
+  countriesMap.set("Colombia", { zoom: 6, buttonCoordinates: [null, null] });
+  countriesMap.set("Brazil", { zoom: 2, buttonCoordinates: [null, null] });
+  countriesMap.set("Dominican Rep.", {
+    zoom: 6,
+    buttonCoordinates: [null, null],
+  });
+  console.log(countriesMap);
   const [position, setPosition] = useState({ coordinates: [65, 10], zoom: 1 });
-
+  const [isZoomed, setIsZoomed] = useState(false);
   const handleCountryClick = (country: any) => {
     // geoCentroid finds the middle of country, returns array
     const middle = geoCentroid(country);
-    console.log(middle);
+    const mapData = countriesMap.get(country.properties.name);
+    console.log(mapData.zoom);
     // negative values because of how the globe rotation works
     setPosition({
       coordinates: [-middle[0], -middle[1]],
-      zoom: 4,
+      zoom: mapData.zoom,
     });
   };
   return (
     <div>
+      <button className="text-black">Reset View</button>
       <ComposableMap
         projection={"geoOrthographic"}
         projectionConfig={{
@@ -40,10 +51,7 @@ const MyMap = () => {
         <Geographies geography={json}>
           {({ geographies }) =>
             geographies.map((country) => {
-              console.log(country);
-              const isTargetCountry = validCountries.includes(
-                country.properties.name
-              );
+              const isTargetCountry = countriesMap.has(country.properties.name);
               return (
                 <Geography
                   geography={country}
