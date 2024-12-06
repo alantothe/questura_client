@@ -53,7 +53,7 @@ const MyMap = () => {
   };
 
   return (
-    <div className="w-1/2 h-[600px]">
+    <div className=" w-1/2 h-[600px]">
       <ComposableMap
         projection={"geoOrthographic"}
         projectionConfig={{
@@ -102,6 +102,7 @@ const MyMap = () => {
                   onClick={() =>
                     isZoomed ? null : handleCountryClick(country)
                   }
+                  className="focus:outline-none"
                 />
               );
             })
@@ -142,6 +143,20 @@ const MyMap = () => {
             </g>
           </Marker>
         ) : null}
+        {
+          <Marker coordinates={[-77.0431, -12.0467]}>
+            <text
+              stroke="#FFFFFF"
+              fill="#000000"
+              fontSize="16"
+              fontWeight="bold"
+              textAnchor="middle"
+              dy=".3em"
+            >
+              Lima
+            </text>
+          </Marker>
+        }
       </ComposableMap>
     </div>
   );
