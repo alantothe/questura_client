@@ -21,8 +21,10 @@ const MyMap = () => {
     buttonCoordinates: [null, null],
   });
   console.log(countriesMap);
-  const [position, setPosition] = useState({ coordinates: [65, 10], zoom: 1 });
+  const [currentCountry, setCurrentCountry] = useState("");
+  const [buttonCoordinates, setButtonCoordinates] = useState([]);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [position, setPosition] = useState({ coordinates: [65, 10], zoom: 1 });
   const handleCountryClick = (country: any) => {
     // geoCentroid finds the middle of country, returns array
     const middle = geoCentroid(country);
@@ -52,6 +54,9 @@ const MyMap = () => {
           {({ geographies }) =>
             geographies.map((country) => {
               const isTargetCountry = countriesMap.has(country.properties.name);
+              if (isTargetCountry) {
+                setCurrentCountry(country.properties.name);
+              }
               return (
                 <Geography
                   geography={country}
@@ -71,10 +76,31 @@ const MyMap = () => {
           }
         </Geographies>
         {isZoomed ? (
-          <Marker coordinates={[-73.07345714315186, 3.9163468591418087]}>
-            <text textAnchor="middle" fill="#F53">
-              Colombia
-            </text>
+          <Marker coordinates={[-88.07345714315186, 3.9163468591418087]}>
+            <g>
+              <circle
+                r="65"
+                fill="#000000"
+                stroke="#FFFFFF"
+                strokeWidth="3"
+                opacity="0.8"
+              />
+              <text
+                textAnchor="middle"
+                fill="#FFFFFF"
+                fontSize="32"
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                <tspan x="0" dy="-0.2em">
+                  ↩
+                </tspan>
+                <tspan x="0" dy="1.2em">
+                  Return
+                </tspan>
+              </text>
+            </g>
           </Marker>
         ) : null}
       </ComposableMap>
