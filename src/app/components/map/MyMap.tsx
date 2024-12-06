@@ -14,7 +14,10 @@ const json = "/world-countries.json";
 const MyMap = () => {
   const countriesMap = new Map();
   countriesMap.set("Peru", { zoom: 6, buttonCoordinates: [null, null] });
-  countriesMap.set("Colombia", { zoom: 6, buttonCoordinates: [null, null] });
+  countriesMap.set("Colombia", {
+    zoom: 6,
+    buttonCoordinates: [-88.07345714315186, 3.9163468591418087],
+  });
   countriesMap.set("Brazil", { zoom: 3.2, buttonCoordinates: [null, null] });
   countriesMap.set("Dominican Rep.", {
     zoom: 6,
@@ -24,7 +27,10 @@ const MyMap = () => {
   const [currentCountry, setCurrentCountry] = useState("");
   const [buttonCoordinates, setButtonCoordinates] = useState([]);
   const [isZoomed, setIsZoomed] = useState(false);
-  const [position, setPosition] = useState({ coordinates: [65, 10], zoom: 1 });
+  const [position, setPosition] = useState({
+    coordinates: [65, 10],
+    zoom: 1.5,
+  });
   const handleCountryClick = (country: any) => {
     // geoCentroid finds the middle of country, returns array
     const middle = geoCentroid(country);
@@ -77,7 +83,13 @@ const MyMap = () => {
         </Geographies>
         {isZoomed ? (
           <Marker coordinates={[-88.07345714315186, 3.9163468591418087]}>
-            <g>
+            <g
+              onClick={() => {
+                setPosition({ coordinates: [65, 10], zoom: 1.5 });
+                setIsZoomed(false);
+              }}
+              className="cursor-pointer"
+            >
               <circle
                 r="65"
                 fill="#000000"

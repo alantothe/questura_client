@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       <MyMap />
-      <WorldMap />
+      {/* <WorldMap /> */}
     </main>
   );
 }
