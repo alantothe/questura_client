@@ -22,6 +22,11 @@ const MyMap = () => {
   const [buttonCoordinates, setButtonCoordinates] = useState<[number, number]>([
     0, 0,
   ]);
+  const [ returnStyles, setReturnStyles] = useState<{ radius: number,
+    strokeWidth: number,
+    fontSize: number,}>(
+
+  )
   const [isZoomed, setIsZoomed] = useState(false);
   const [position, setPosition] = useState({
     coordinates: [65, 10],
@@ -37,6 +42,11 @@ const MyMap = () => {
       coordinates: [-middle[0], -middle[1]],
       zoom: mapData.zoom,
     });
+    setReturnStyles({
+      radius: mapData.returnStyles.radius,
+      strokeWidth: mapData.returnStyles.strokeWidth,
+      fontSize: mapData.returnStyles.fontSize
+    })
     setIsZoomed(true);
     setCurrentCountry(country.properties.name);
     setCurrentCities(
@@ -105,7 +115,9 @@ const MyMap = () => {
             })
           }
         </Geographies>
-        {isZoomed ? (
+       
+        {// return button
+        isZoomed ? (
           <Marker coordinates={buttonCoordinates}>
             <g
               onClick={() => {
@@ -116,16 +128,16 @@ const MyMap = () => {
               className="cursor-pointer"
             >
               <circle
-                r="65"
+                r={returnStyles?.radius}
                 fill="#000000"
                 stroke="#FFFFFF"
-                strokeWidth="3"
+                strokeWidth={returnStyles?.strokeWidth}
                 opacity="0.8"
               />
               <text
                 textAnchor="middle"
                 fill="#FFFFFF"
-                fontSize="32"
+                fontSize={returnStyles?.fontSize}
                 style={{
                   fontWeight: "bold",
                 }}
