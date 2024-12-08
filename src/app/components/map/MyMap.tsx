@@ -8,7 +8,7 @@ import {
   Marker,
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
-import {countriesMap} from "./data/countryData"
+import { countriesMap } from "./data/countryData";
 
 const json = "/world-countries.json";
 type CityMarker = {
@@ -22,11 +22,11 @@ const MyMap = () => {
   const [buttonCoordinates, setButtonCoordinates] = useState<[number, number]>([
     0, 0,
   ]);
-  const [ returnStyles, setReturnStyles] = useState<{ radius: number,
-    strokeWidth: number,
-    fontSize: number,}>(
-
-  )
+  const [returnStyles, setReturnStyles] = useState<{
+    radius: number;
+    strokeWidth: number;
+    fontSize: number;
+  }>();
   const [isZoomed, setIsZoomed] = useState(false);
   const [position, setPosition] = useState({
     coordinates: [65, 10],
@@ -45,8 +45,8 @@ const MyMap = () => {
     setReturnStyles({
       radius: mapData.returnStyles.radius,
       strokeWidth: mapData.returnStyles.strokeWidth,
-      fontSize: mapData.returnStyles.fontSize
-    })
+      fontSize: mapData.returnStyles.fontSize,
+    });
     setIsZoomed(true);
     setCurrentCountry(country.properties.name);
     setCurrentCities(
@@ -115,59 +115,73 @@ const MyMap = () => {
             })
           }
         </Geographies>
-       
-        {// return button
-        isZoomed ? (
-          <Marker coordinates={buttonCoordinates}>
-            <g
-              onClick={() => {
-                setPosition({ coordinates: [65, 10], zoom: 1.5 });
-                setIsZoomed(false);
-                setCurrentCountry(null);
-              }}
-              className="cursor-pointer"
-            >
-              <circle
-                r={returnStyles?.radius}
-                fill="#000000"
-                stroke="#FFFFFF"
-                strokeWidth={returnStyles?.strokeWidth}
-                opacity="0.8"
-              />
-              <text
-                textAnchor="middle"
-                fill="#FFFFFF"
-                fontSize={returnStyles?.fontSize}
-                style={{
-                  fontWeight: "bold",
+
+        {
+          // return button
+          isZoomed ? (
+            <Marker coordinates={buttonCoordinates}>
+              <g
+                onClick={() => {
+                  setPosition({ coordinates: [65, 10], zoom: 1.5 });
+                  setIsZoomed(false);
+                  setCurrentCountry(null);
                 }}
+                className="cursor-pointer"
               >
-                <tspan x="0" dy="-0.2em">
-                  ↩
-                </tspan>
-                <tspan x="0" dy="1.2em">
-                  Return
-                </tspan>
-              </text>
-            </g>
-          </Marker>
-        ) : null}
-        {isZoomed && currentCities
-          ? currentCities.map((city: CityMarker) => (
-              <Marker key={city.name} coordinates={city.coordinates}>
-                <text
-                  stroke="#FFFFFF"
+                <circle
+                  r={returnStyles?.radius}
                   fill="#000000"
-                  fontSize="16"
-                  fontWeight="bold"
+                  stroke="#FFFFFF"
+                  strokeWidth={returnStyles?.strokeWidth}
+                  opacity="0.8"
+                />
+                <text
                   textAnchor="middle"
-                  dy=".3em"
+                  fill="#FFFFFF"
+                  fontSize={returnStyles?.fontSize}
+                  style={{
+                    fontWeight: "bold",
+                  }}
                 >
-                  {city.name}
+                  <tspan x="0" dy="-0.2em">
+                    ↩
+                  </tspan>
+                  <tspan x="0" dy="1.2em">
+                    Return
+                  </tspan>
                 </text>
-              </Marker>
-            ))
-          : null}
+              </g>
+            </Marker>
+          ) : null
+        }
+        {
+          //city markers
+          isZoomed && currentCities
+            ? currentCities.map((city: CityMarker) => [
+                <Marker
+                  key={`${city.name}-text`}
+                  coordinates={[city.coordinates[0], city.coordinates[1]- 1]}
+                >
+                  <text
+                    stroke="#FFFFFF"
+                    fill="#000000"
+                    fontSize="16"
+                    fontWeight="bold"
+                    textAnchor="middle"
+                    dy=".3em"
+                  >
+                    {city.name}
+                  </text>
+                </Marker>,
+                <Marker
+                  key={`${city.name}-circle`}
+                  coordinates={city.coordinates}
+                >
+                  <circle r={8} fill="#F53" />
+                </Marker>,
+              ])
+            : null
+        }
       </ComposableMap>
     </div>
   );
