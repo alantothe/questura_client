@@ -68,8 +68,13 @@ const MyMap = () => {
           rotate: [position.coordinates[0], position.coordinates[1], 0],
         }}
       >
+        <defs>
+          <filter id="blur-filter">
+            <feGaussianBlur stdDeviation="1" />
+          </filter>
+        </defs>
         <Sphere id="sphere" fill="#1B1B35" stroke="#000000" strokeWidth={2} />
-        {/* Base Layer */}
+        {/* Base Layer - Always blurred when zoomed */}
         <Geographies geography={json}>
           {({ geographies }) =>
             geographies.map((country) => (
@@ -79,42 +84,83 @@ const MyMap = () => {
                 stroke="#3C3A4F"
                 strokeWidth={0.5}
                 style={{
-                  default: { fill: "#565371" },
-                  hover: { fill: "#565371" },
-                  pressed: { fill: "#565371" },
+                  default: { 
+                    fill: "#565371",
+                    filter: isZoomed ? "url(#blur-filter)" : "none"
+                  },
+                  hover: { 
+                    fill: "#565371",
+                    filter: isZoomed ? "url(#blur-filter)" : "none"
+                  },
+                  pressed: { 
+                    fill: "#565371",
+                    filter: isZoomed ? "url(#blur-filter)" : "none"
+                  },
                 }}
               />
             ))
           }
         </Geographies>
-        <Geographies geography={json}>
-          {({ geographies }) =>
-            geographies.map((country) => {
-              const isTargetCountry = countriesMap.has(country.properties.name);
-              const isCurrent = currentCountry === country.properties.name;
 
-              if (!isTargetCountry) return null;
+        {/* Current Country Layer - Never blurred */}
+        {isZoomed && currentCountry && (
+          <Geographies geography={json}>
+            {({ geographies }) =>
+              geographies
+                .filter((country) => country.properties.name === currentCountry)
+                .map((country) => (
+                  <Geography
+                    key={`current-${country.rsmKey}`}
+                    geography={country}
+                    stroke="#ffd700"
+                    strokeWidth={3}
+                    style={{
+                      default: { 
+                        fill: "#565371",
+                        filter: "none"
+                      },
+                      hover: { 
+                        fill: "#565371",
+                        filter: "none"
+                      },
+                      pressed: { 
+                        fill: "#565371",
+                        filter: "none"
+                      },
+                    }}
+                  />
+                ))
+            }
+          </Geographies>
+        )}
 
-              return (
-                <Geography
-                  key={`target-${country.rsmKey}`}
-                  geography={country}
-                  stroke="#FFFFFF"
-                  strokeWidth={1}
-                  style={{
-                    default: { fill: isCurrent ? "#9B97BF" : "#565371" },
-                    hover: { fill: isZoomed ? "#565371" : "#04D" },
-                    pressed: { fill: isCurrent ? "#02A" : "#565371" },
-                  }}
-                  onClick={() =>
-                    isZoomed ? null : handleCountryClick(country)
-                  }
-                  className="focus:outline-none"
-                />
-              );
-            })
-          }
-        </Geographies>
+        {/* Clickable Countries Layer */}
+        {!isZoomed && (
+          <Geographies geography={json}>
+            {({ geographies }) =>
+              geographies.map((country) => {
+                const isTargetCountry = countriesMap.has(country.properties.name);
+                if (!isTargetCountry) return null;
+
+                return (
+                  <Geography
+                    key={`target-${country.rsmKey}`}
+                    geography={country}
+                    stroke="#FFFFFF"
+                    strokeWidth={1}
+                    style={{
+                      default: { fill: "#565371" },
+                      hover: { fill: "#403d54" },
+                      pressed: { fill: "#565371" },
+                    }}
+                    onClick={() => handleCountryClick(country)}
+                    className="focus:outline-none"
+                  />
+                );
+              })
+            }
+          </Geographies>
+        )}
 
         {
           // return button
@@ -177,7 +223,7 @@ const MyMap = () => {
                   key={`${city.name}-circle`}
                   coordinates={city.coordinates}
                 >
-                  <circle r={8} fill="#F53" />
+                  <circle r={8} fill="#1e1d28" />
                 </Marker>,
               ])
             : null
