@@ -8,6 +8,7 @@ import {
   Marker,
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
+import {countriesMap} from "./data/countryData"
 
 const json = "/world-countries.json";
 type CityMarker = {
@@ -16,34 +17,6 @@ type CityMarker = {
 };
 
 const MyMap = () => {
-  const countriesMap = new Map();
-  countriesMap.set("Peru", {
-    zoom: 6,
-    buttonCoordinates: [-85.43056901477354, -10.147133411380077],
-    cities: new Map([
-      ["Lima", [-77.0431, -12.0467]],
-      ["Cusco", [-71.9675, -13.5319]],
-    ]),
-  });
-  countriesMap.set("Colombia", {
-    zoom: 6,
-    buttonCoordinates: [-88.07345714315186, 3.9163468591418087],
-    cities: new Map([
-      ["Bogotá", [-74.0721, 4.711]],
-      ["Medellín", [-75.5636, 6.2518]],
-    ]),
-  });
-  countriesMap.set("Brazil", {
-    zoom: 3.2,
-    buttonCoordinates: [-25.17252777972014, -10.655474918772201],
-    cities: new Map([["Brasília", [-47.9292, -15.7801]]]),
-  });
-  countriesMap.set("Dominican Rep.", {
-    zoom: 9,
-    buttonCoordinates: [-56.46185863870569, 18.885420716111305],
-    cities: new Map([["Santo Domingo", [-69.9312, 18.4861]]]),
-  });
-
   const [currentCountry, setCurrentCountry] = useState<string | null>(null);
   const [currentCities, setCurrentCities] = useState<CityMarker[]>([]);
   const [buttonCoordinates, setButtonCoordinates] = useState<[number, number]>([
@@ -58,6 +31,7 @@ const MyMap = () => {
   const handleCountryClick = (country: any) => {
     const middle = geoCentroid(country);
     const mapData = countriesMap.get(country.properties.name);
+    if (!mapData) return;
     setButtonCoordinates(mapData.buttonCoordinates);
     setPosition({
       coordinates: [-middle[0], -middle[1]],
