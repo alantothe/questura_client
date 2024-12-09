@@ -17,6 +17,8 @@ type CityMarker = {
 };
 
 const MyMap = () => {
+  // console.log(labels)
+
   const [currentCountry, setCurrentCountry] = useState<string | null>(null);
   const [currentCities, setCurrentCities] = useState<CityMarker[]>([]);
   const [buttonCoordinates, setButtonCoordinates] = useState<[number, number]>([
@@ -35,6 +37,7 @@ const MyMap = () => {
 
   const handleCountryClick = (country: any) => {
     const middle = geoCentroid(country);
+    console.log(middle);
     const mapData = countriesMap.get(country.properties.name);
     if (!mapData) return;
     setButtonCoordinates(mapData.buttonCoordinates);
@@ -77,28 +80,31 @@ const MyMap = () => {
         {/* Base Layer - Always blurred when zoomed */}
         <Geographies geography={json}>
           {({ geographies }) =>
-            geographies.map((country) => (
+            geographies.map((country) => [
               <Geography
                 key={country.rsmKey}
                 geography={country}
                 stroke="#3C3A4F"
                 strokeWidth={0.5}
                 style={{
-                  default: { 
+                  default: {
                     fill: "#565371",
-                    filter: isZoomed ? "url(#blur-filter)" : "none"
+                    filter: isZoomed ? "url(#blur-filter)" : "none",
+                    opacity: 0.85,
                   },
-                  hover: { 
+                  hover: {
                     fill: "#565371",
-                    filter: isZoomed ? "url(#blur-filter)" : "none"
+                    filter: isZoomed ? "url(#blur-filter)" : "none",
+                    opacity: 0.85,
                   },
-                  pressed: { 
+                  pressed: {
                     fill: "#565371",
-                    filter: isZoomed ? "url(#blur-filter)" : "none"
+                    filter: isZoomed ? "url(#blur-filter)" : "none",
+                    opacity: 0.85,
                   },
                 }}
-              />
-            ))
+              />,
+            ])
           }
         </Geographies>
 
@@ -112,20 +118,20 @@ const MyMap = () => {
                   <Geography
                     key={`current-${country.rsmKey}`}
                     geography={country}
-                    stroke="#ffd700"
+                    stroke="#FFFFFF"
                     strokeWidth={3}
                     style={{
-                      default: { 
+                      default: {
                         fill: "#565371",
-                        filter: "none"
+                        filter: "none",
                       },
-                      hover: { 
+                      hover: {
                         fill: "#565371",
-                        filter: "none"
+                        filter: "none",
                       },
-                      pressed: { 
+                      pressed: {
                         fill: "#565371",
-                        filter: "none"
+                        filter: "none",
                       },
                     }}
                   />
@@ -139,7 +145,9 @@ const MyMap = () => {
           <Geographies geography={json}>
             {({ geographies }) =>
               geographies.map((country) => {
-                const isTargetCountry = countriesMap.has(country.properties.name);
+                const isTargetCountry = countriesMap.has(
+                  country.properties.name
+                );
                 if (!isTargetCountry) return null;
 
                 return (
@@ -201,12 +209,37 @@ const MyMap = () => {
           ) : null
         }
         {
+          //country labels .. not zoomed
+          !isZoomed
+            ? Array.from(countriesMap.entries()).map(([name, object]) => (
+                <Marker
+                  key={`${name}-text`}
+                  coordinates={[
+                    object.labelCoordinates[0],
+                    object.labelCoordinates[1],
+                  ]}
+                >
+                  <text
+                    stroke="#FFFFFF"
+                    fill="#000000"
+                    fontSize="16"
+                    fontWeight="bold"
+                    textAnchor="middle"
+                    dy=".3em"
+                  >
+                    {name}
+                  </text>
+                </Marker>
+              ))
+            : null
+        }
+        {
           //city markers
           isZoomed && currentCities
             ? currentCities.map((city: CityMarker) => [
                 <Marker
                   key={`${city.name}-text`}
-                  coordinates={[city.coordinates[0], city.coordinates[1]- 1]}
+                  coordinates={[city.coordinates[0], city.coordinates[1] - 1]}
                 >
                   <text
                     stroke="#FFFFFF"
