@@ -9,6 +9,8 @@ import {
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import { countriesMap } from "./data/countryData";
+import Brazil from "./data/svg/br";
+import Image from "next/image";
 
 const json = "/world-countries.json";
 type CityMarker = {
@@ -32,7 +34,7 @@ const MyMap = () => {
   const [isZoomed, setIsZoomed] = useState(false);
   const [position, setPosition] = useState({
     coordinates: [65, 10],
-    zoom: 1.5,
+    zoom: 2,
   });
 
   const handleCountryClick = (country: any) => {
@@ -211,7 +213,7 @@ const MyMap = () => {
         {
           //country labels .. not zoomed
           !isZoomed
-            ? Array.from(countriesMap.entries()).map(([name, object]) => (
+            ? Array.from(countriesMap.entries()).map(([name, object]) => ([
                 <Marker
                   key={`${name}-text`}
                   coordinates={[
@@ -229,7 +231,9 @@ const MyMap = () => {
                   >
                     {name}
                   </text>
-                </Marker>
+                  {/* <Brazil key={name} /> */}
+                </Marker>,
+                ]
               ))
             : null
         }
@@ -262,6 +266,7 @@ const MyMap = () => {
             : null
         }
       </ComposableMap>
+    
     </div>
   );
 };

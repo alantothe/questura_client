@@ -35,6 +35,13 @@ const nextConfig = {
         protocol: "https",
         hostname: "patreon.com",
       },
+      {
+        protocol: "https",
+        hostname: "hatscripts.github.io",
+      },      {
+        protocol: "https",
+        hostname: "hatscripts.github.io",
+      }
     ],
   },
 };

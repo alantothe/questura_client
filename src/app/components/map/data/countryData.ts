@@ -9,10 +9,10 @@ type CountryData = {
   labelCoordinates: [number, number];
   cities: Map<string, [number, number]>;
   returnStyles: {
-    radius: number,
-    strokeWidth: number,
-    fontSize: number,
-  }
+    radius: number;
+    strokeWidth: number;
+    fontSize: number;
+  };
 };
 
 export const countriesMap = new Map<string, CountryData>([
@@ -22,7 +22,7 @@ export const countriesMap = new Map<string, CountryData>([
       zoom: 6,
       buttonCoordinates: [-85.43056901477354, -10.147133411380077],
       labelCoordinates: [-74.43056901477354, -10.147133411380077],
-      
+
       cities: new Map([
         ["Lima", [-77.0431, -12.0467]],
         ["Cusco", [-71.9675, -13.5319]],
@@ -31,25 +31,25 @@ export const countriesMap = new Map<string, CountryData>([
         radius: 65,
         strokeWidth: 3,
         fontSize: 32,
-      }
-      
+      },
     },
   ],
   [
     "Colombia",
     {
-      zoom: 12,
+      zoom: 9,
       buttonCoordinates: [-67.17345714315186, 8.763468591418087],
       labelCoordinates: [-73.07345714315186, 3.9163468591418087],
       cities: new Map([
         ["Bogotá", [-74.0721, 4.711]],
         ["Medellín", [-75.5636, 6.2518]],
+        ["Cartagena", [-75.5144, 10.3997]],
       ]),
       returnStyles: {
         radius: 65,
         strokeWidth: 3,
         fontSize: 32,
-      }
+      },
     },
   ],
   [
@@ -58,12 +58,16 @@ export const countriesMap = new Map<string, CountryData>([
       zoom: 3.2,
       buttonCoordinates: [-25.17252777972014, -10.655474918772201],
       labelCoordinates: [-53.17252777972014, -10.655474918772201],
-      cities: new Map([["Brasília", [-47.9292, -15.7801]]]),
+      cities: new Map([
+        ["Brasília", [-47.9292, -15.7801]],
+        ["São Paulo", [-46.6333, -23.5505]],
+        ["Salvador", [-38.5014, -12.9714]],
+      ]),
       returnStyles: {
         radius: 65,
         strokeWidth: 3,
         fontSize: 32,
-      }
+      },
     },
   ],
   [
@@ -77,7 +81,7 @@ export const countriesMap = new Map<string, CountryData>([
         radius: 60,
         strokeWidth: 3,
         fontSize: 32,
-      }
+      },
     },
   ],
 ]);
