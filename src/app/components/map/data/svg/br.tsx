@@ -10,7 +10,7 @@ const Brazil = (props : styleProps ) => {
       xmlns="http://www.w3.org/2000/svg"
       width={props.width}
       height={props.height}
-      viewBox="0 0 512 512"
+      viewBox="-70 -70 680 680"
     >
       <mask id="a">
         <circle cx="256" cy="256" r="256" fill="#fff" />
@@ -27,6 +27,14 @@ const Brazil = (props : styleProps ) => {
           d="M255.7 167a89 89 0 0 0-41.9 10.6 89 89 0 0 0-39.6 43.4 181.7 181.7 0 0 1 169.1 52.2 89 89 0 0 0-9-59.4 89 89 0 0 0-78.6-46.8M212 250.5a149 149 0 0 0-45 6.8 89 89 0 0 0 10.5 40.9 89 89 0 0 0 120.6 36.2 89 89 0 0 0 30.7-27.3A151 151 0 0 0 212 250.5"
         />
       </g>
+      <circle
+        cx="256"
+        cy="256"
+        r="300"
+        fill="none"
+        stroke="#8100ff"
+        strokeWidth="18"
+      />
     </svg>
   );
 };

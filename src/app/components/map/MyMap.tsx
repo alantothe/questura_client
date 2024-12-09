@@ -9,8 +9,6 @@ import {
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import { countriesMap } from "./data/countryData";
-import Brazil from "./data/svg/br";
-import Image from "next/image";
 
 const json = "/world-countries.json";
 type CityMarker = {
@@ -19,8 +17,6 @@ type CityMarker = {
 };
 
 const MyMap = () => {
-  // console.log(labels)
-
   const [currentCountry, setCurrentCountry] = useState<string | null>(null);
   const [currentCities, setCurrentCities] = useState<CityMarker[]>([]);
   const [buttonCoordinates, setButtonCoordinates] = useState<[number, number]>([
@@ -34,7 +30,7 @@ const MyMap = () => {
   const [isZoomed, setIsZoomed] = useState(false);
   const [position, setPosition] = useState({
     coordinates: [65, 10],
-    zoom: 2,
+    zoom: 1.5,
   });
 
   const handleCountryClick = (country: any) => {
@@ -65,7 +61,7 @@ const MyMap = () => {
   };
 
   return (
-    <div className=" w-1/2 h-[600px]">
+    <div className=" w-1/2 h-full">
       <ComposableMap
         projection={"geoOrthographic"}
         projectionConfig={{
@@ -231,8 +227,16 @@ const MyMap = () => {
                 >
                   {name}
                 </text>
-              <Flag key={`${name}-text`} width={50} height={50} />
+             
               </Marker>,
+              <Marker              key={`${name}-flag`}
+              coordinates={[
+                object.labelCoordinates[0],
+                object.labelCoordinates[1]-1,
+              ]}>
+                 <Flag  key={`${name}-text`} width={object.flagStyles.width} height={object.flagStyles.height} />
+
+              </Marker>
             ]})
           : null}
         {

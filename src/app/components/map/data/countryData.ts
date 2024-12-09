@@ -49,8 +49,8 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 50,
-        height: 50
+        width: 30,
+        height: 30
       },
       component: Peru
     },
@@ -72,8 +72,8 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 50,
-        height: 50
+        width: 30,
+        height: 30
       },
       component: Colombia
     },
@@ -95,8 +95,8 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 50,
-        height: 50
+        width: 60,
+        height: 60
       },
       component: Brazil
     },
@@ -114,8 +114,8 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 50,
-        height: 50
+        width: 30,
+        height: 30
       }, 
       component: DR,
     },
