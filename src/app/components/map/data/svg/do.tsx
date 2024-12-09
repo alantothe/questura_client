@@ -9,7 +9,7 @@ const DR = (props: styleProps) => {
       xmlns="http://www.w3.org/2000/svg"
       width={props.width}
       height={props.height}
-      viewBox="0 0 512 512"
+       viewBox="-70 -70 680 680"
     >
       <mask id="a">
         <circle cx="256" cy="256" r="256" fill="#fff" />
@@ -37,6 +37,14 @@ const DR = (props: styleProps) => {
           d="M218.4 222.6v41.7a37.6 37.6 0 1 0 75.2 0v-41.7z"
         />
       </g>
+      <circle
+        cx="256"
+        cy="256"
+        r="300"
+        fill="none"
+        stroke="#8100ff"
+        strokeWidth="18"
+      />
     </svg>
   );
 };

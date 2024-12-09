@@ -9,7 +9,7 @@ const Peru = (props: styleProps) => {
       xmlns="http://www.w3.org/2000/svg"
       width={props.width}
       height={props.height}
-      viewBox="0 0 512 512"
+       viewBox="-70 -70 680 680"
     >
       <mask id="a">
         <circle cx="256" cy="256" r="256" fill="#fff" />
@@ -21,6 +21,14 @@ const Peru = (props: styleProps) => {
         />
         <path fill="#eee" d="M167 0h178v512H167z" />
       </g>
+      <circle
+        cx="256"
+        cy="256"
+        r="300"
+        fill="none"
+        stroke="#8100ff"
+        strokeWidth="18"
+      />
     </svg>
   );
 };
