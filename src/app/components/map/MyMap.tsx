@@ -210,7 +210,10 @@ const MyMap = () => {
         ) : null}
         {/* country labels .. not zoomed */}
         {!isZoomed
-          ? Array.from(countriesMap.entries()).map(([name, object]) => [
+          ? Array.from(countriesMap.entries()).map(([name, object]) => {
+            const Flag = object.component
+            return [
+
               <Marker
                 key={`${name}-text`}
                 coordinates={[
@@ -228,9 +231,9 @@ const MyMap = () => {
                 >
                   {name}
                 </text>
-                {/* <Brazil key={name} /> */}
+              <Flag key={`${name}-text`} width={50} height={50} />
               </Marker>,
-            ])
+            ]})
           : null}
         {
           isZoomed && currentCities

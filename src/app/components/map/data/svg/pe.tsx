@@ -3,9 +3,14 @@ type styleProps = {
   height: number;
 };
 
-const Peru = (props: styleProps ) => {
+const Peru = (props: styleProps) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={props.width} height={props.height}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.width}
+      height={props.height}
+      viewBox="0 0 512 512"
+    >
       <mask id="a">
         <circle cx="256" cy="256" r="256" fill="#fff" />
       </mask>

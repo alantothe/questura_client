@@ -5,7 +5,12 @@ type styleProps = {
 
 const DR = (props: styleProps) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={props.width} height={props.height}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.width}
+      height={props.height}
+      viewBox="0 0 512 512"
+    >
       <mask id="a">
         <circle cx="256" cy="256" r="256" fill="#fff" />
       </mask>
@@ -36,4 +41,4 @@ const DR = (props: styleProps) => {
   );
 };
 
-export default DR
+export default DR;
