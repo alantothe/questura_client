@@ -1,6 +1,17 @@
+import  Brazil from "./svg/br"
+import  Colombia from "./svg/co"
+import  Peru from "./svg/pe"
+import  DR from "./svg/do"
+
+
 type CityMarker = {
   name: string;
   coordinates: [number, number];
+};
+
+type styleProps = {
+  width: number;
+  height: number;
 };
 
 type CountryData = {
@@ -13,6 +24,11 @@ type CountryData = {
     strokeWidth: number;
     fontSize: number;
   };
+  flagStyles: {
+    width: number,
+    height: number
+  },
+  component: React.ComponentType<styleProps>
 };
 
 export const countriesMap = new Map<string, CountryData>([
@@ -32,6 +48,11 @@ export const countriesMap = new Map<string, CountryData>([
         strokeWidth: 3,
         fontSize: 32,
       },
+      flagStyles: {
+        width: 50,
+        height: 50
+      },
+      component: Peru
     },
   ],
   [
@@ -50,6 +71,11 @@ export const countriesMap = new Map<string, CountryData>([
         strokeWidth: 3,
         fontSize: 32,
       },
+      flagStyles: {
+        width: 50,
+        height: 50
+      },
+      component: Colombia
     },
   ],
   [
@@ -68,6 +94,11 @@ export const countriesMap = new Map<string, CountryData>([
         strokeWidth: 3,
         fontSize: 32,
       },
+      flagStyles: {
+        width: 50,
+        height: 50
+      },
+      component: Brazil
     },
   ],
   [
@@ -82,6 +113,11 @@ export const countriesMap = new Map<string, CountryData>([
         strokeWidth: 3,
         fontSize: 32,
       },
+      flagStyles: {
+        width: 50,
+        height: 50
+      }, 
+      component: DR,
     },
   ],
 ]);

@@ -79,7 +79,7 @@ const MyMap = () => {
           </filter>
         </defs>
         <Sphere id="sphere" fill="#1B1B35" stroke="#000000" strokeWidth={2} />
-        {/* Base Layer - Always blurred when zoomed */}
+        {/* base layer - always blurred when zoomed */}
         <Geographies geography={json}>
           {({ geographies }) =>
             geographies.map((country) => [
@@ -110,7 +110,7 @@ const MyMap = () => {
           }
         </Geographies>
 
-        {/* Current Country Layer - Never blurred */}
+        {/* current country layer - never blurred */}
         {isZoomed && currentCountry && (
           <Geographies geography={json}>
             {({ geographies }) =>
@@ -142,7 +142,7 @@ const MyMap = () => {
           </Geographies>
         )}
 
-        {/* Clickable Countries Layer */}
+        {/* click countries layer .. not zoomed*/}
         {!isZoomed && (
           <Geographies geography={json}>
             {({ geographies }) =>
@@ -172,73 +172,67 @@ const MyMap = () => {
           </Geographies>
         )}
 
-        {
-          // return button
-          isZoomed ? (
-            <Marker coordinates={buttonCoordinates}>
-              <g
-                onClick={() => {
-                  setPosition({ coordinates: [65, 10], zoom: 1.5 });
-                  setIsZoomed(false);
-                  setCurrentCountry(null);
+        {/* return button .. zoomed */}
+        {isZoomed ? (
+          <Marker coordinates={buttonCoordinates}>
+            <g
+              onClick={() => {
+                setPosition({ coordinates: [65, 10], zoom: 1.5 });
+                setIsZoomed(false);
+                setCurrentCountry(null);
+              }}
+              className="cursor-pointer"
+            >
+              <circle
+                r={returnStyles?.radius}
+                fill="#000000"
+                stroke="#FFFFFF"
+                strokeWidth={returnStyles?.strokeWidth}
+                opacity="0.8"
+              />
+              <text
+                textAnchor="middle"
+                fill="#FFFFFF"
+                fontSize={returnStyles?.fontSize}
+                style={{
+                  fontWeight: "bold",
                 }}
-                className="cursor-pointer"
               >
-                <circle
-                  r={returnStyles?.radius}
-                  fill="#000000"
-                  stroke="#FFFFFF"
-                  strokeWidth={returnStyles?.strokeWidth}
-                  opacity="0.8"
-                />
+                <tspan x="0" dy="-0.2em">
+                  ↩
+                </tspan>
+                <tspan x="0" dy="1.2em">
+                  Return
+                </tspan>
+              </text>
+            </g>
+          </Marker>
+        ) : null}
+        {/* country labels .. not zoomed */}
+        {!isZoomed
+          ? Array.from(countriesMap.entries()).map(([name, object]) => [
+              <Marker
+                key={`${name}-text`}
+                coordinates={[
+                  object.labelCoordinates[0],
+                  object.labelCoordinates[1],
+                ]}
+              >
                 <text
+                  stroke="#FFFFFF"
+                  fill="#000000"
+                  fontSize="16"
+                  fontWeight="bold"
                   textAnchor="middle"
-                  fill="#FFFFFF"
-                  fontSize={returnStyles?.fontSize}
-                  style={{
-                    fontWeight: "bold",
-                  }}
+                  dy=".3em"
                 >
-                  <tspan x="0" dy="-0.2em">
-                    ↩
-                  </tspan>
-                  <tspan x="0" dy="1.2em">
-                    Return
-                  </tspan>
+                  {name}
                 </text>
-              </g>
-            </Marker>
-          ) : null
-        }
+                {/* <Brazil key={name} /> */}
+              </Marker>,
+            ])
+          : null}
         {
-          //country labels .. not zoomed
-          !isZoomed
-            ? Array.from(countriesMap.entries()).map(([name, object]) => ([
-                <Marker
-                  key={`${name}-text`}
-                  coordinates={[
-                    object.labelCoordinates[0],
-                    object.labelCoordinates[1],
-                  ]}
-                >
-                  <text
-                    stroke="#FFFFFF"
-                    fill="#000000"
-                    fontSize="16"
-                    fontWeight="bold"
-                    textAnchor="middle"
-                    dy=".3em"
-                  >
-                    {name}
-                  </text>
-                  {/* <Brazil key={name} /> */}
-                </Marker>,
-                ]
-              ))
-            : null
-        }
-        {
-          //city markers
           isZoomed && currentCities
             ? currentCities.map((city: CityMarker) => [
                 <Marker
@@ -266,7 +260,6 @@ const MyMap = () => {
             : null
         }
       </ComposableMap>
-    
     </div>
   );
 };

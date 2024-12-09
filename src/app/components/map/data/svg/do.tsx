@@ -35,3 +35,5 @@ const DR = (props: styleProps) => {
     </svg>
   );
 };
+
+export default DR
