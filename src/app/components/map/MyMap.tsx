@@ -12,7 +12,7 @@ import {
 import { geoCentroid } from "d3-geo";
 import { countriesMap } from "./data/countryData";
 import { Montserrat } from "next/font/google";
-import { geoInterpolate } from "d3-geo";
+import MyLine from "./data/svg/lines/line"
 
 const json = "/world-countries.json";
 type CityMarker = {
@@ -255,18 +255,9 @@ const MyMap = () => {
                   />
                 </Marker>,
            //Don't use <Line/> make an svg and place and place the svg(line) on one coordinate (from and to will make it bend)
-                  <Line
-                  key={`test-line-${name}`}
-                    from={[-81, 5]}
-                    to={[-81, 2]}
-                    stroke="#8100ff"
-                    strokeWidth={0.25}
-                  />,
-                  <Marker key={`test-line-marker-${name}`} coordinates={[-81, 3.5]}>
-                    <circle r=".75" fill="#8100ff" />
-                  </Marker>,
+ 
                     <Marker key={`test-line-marker-outer-${name}`} coordinates={[-81, 3.5]}>
-                    <circle r="2.25" stroke="#8100ff" fill="none" strokeWidth="0.25" />
+                   <MyLine/>
                   </Marker>
                
               ];

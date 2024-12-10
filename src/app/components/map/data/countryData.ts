@@ -1,7 +1,7 @@
-import Brazil from "./svg/br";
-import Colombia from "./svg/co";
-import Peru from "./svg/pe";
-import DR from "./svg/do";
+import Brazil from "./svg/flags/br";
+import Colombia from "./svg/flags/co";
+import Peru from "./svg/flags/pe";
+import DR from "./svg/flags/do";
 
 type CityMarker = {
   name: string;
