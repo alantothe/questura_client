@@ -27,7 +27,14 @@ type CountryData = {
   flagStyles: {
     width: number;
     height: number;
-  };
+  },
+  // lineCoordinates : {
+  //   parallel: {
+  //     from : [number, number]
+  //     to: [number, number]
+  //   } 
+     
+  // }
   component: React.ComponentType<styleProps>;
 };
 
@@ -61,7 +68,7 @@ export const countriesMap = new Map<string, CountryData>([
     {
       zoom: 9,
       buttonCoordinates: [-67.17345714315186, 8.763468591418087],
-      labelCoordinates: [-87.07345714315186, 3.9163468591418087],
+      labelCoordinates: [-88.07345714315186, 3.9163468591418087],
       flagCoordinates: [-75.70345714315186, 5.4063468591418087],
 
       cities: new Map([

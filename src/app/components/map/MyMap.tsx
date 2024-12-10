@@ -226,7 +226,7 @@ const MyMap = () => {
                   <text
                     stroke="#8100ff"
                     fill="#8100ff"
-                    fontSize="12"
+                    fontSize="14"
                     fontWeight="100"
                     className={montserrat.className}
                     style={{
@@ -256,10 +256,10 @@ const MyMap = () => {
                 </Marker>,
                 <Line
                   key="test-line"
-                  from={[-80, 5]}
-                  to={[-80, 1]}
+                  from={[-81, 5]}
+                  to={[-81, 2]}
                   stroke="#8100ff"
-                  strokeWidth={1}
+                  strokeWidth={.25}
                 />,
               ];
             })
