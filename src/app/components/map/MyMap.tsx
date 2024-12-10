@@ -254,13 +254,21 @@ const MyMap = () => {
                     height={object.flagStyles.height}
                   />
                 </Marker>,
-                <Line
-                  key="test-line"
-                  from={[-81, 5]}
-                  to={[-81, 2]}
-                  stroke="#8100ff"
-                  strokeWidth={.25}
-                />,
+           
+                  <Line
+                  key={`test-line-${name}`}
+                    from={[-81, 5]}
+                    to={[-81, 2]}
+                    stroke="#8100ff"
+                    strokeWidth={0.25}
+                  />,
+                  <Marker key={`test-line-marker-${name}`} coordinates={[-81, 3.5]}>
+                    <circle r=".75" fill="#8100ff" />
+                  </Marker>,
+                    <Marker key={`test-line-marker-outer-${name}`} coordinates={[-81, 3.5]}>
+                    <circle r="2.25" stroke="#8100ff" fill="none" strokeWidth="0.25" />
+                  </Marker>
+               
               ];
             })
           : null}
