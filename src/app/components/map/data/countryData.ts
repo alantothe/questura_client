@@ -1,8 +1,7 @@
-import  Brazil from "./svg/br"
-import  Colombia from "./svg/co"
-import  Peru from "./svg/pe"
-import  DR from "./svg/do"
-
+import Brazil from "./svg/br";
+import Colombia from "./svg/co";
+import Peru from "./svg/pe";
+import DR from "./svg/do";
 
 type CityMarker = {
   name: string;
@@ -18,7 +17,7 @@ type CountryData = {
   zoom: number;
   buttonCoordinates: [number, number];
   labelCoordinates: [number, number];
-  flagCoordinates: [ number, number]
+  flagCoordinates: [number, number];
   cities: Map<string, [number, number]>;
   returnStyles: {
     radius: number;
@@ -26,10 +25,10 @@ type CountryData = {
     fontSize: number;
   };
   flagStyles: {
-    width: number,
-    height: number
-  },
-  component: React.ComponentType<styleProps>
+    width: number;
+    height: number;
+  };
+  component: React.ComponentType<styleProps>;
 };
 
 export const countriesMap = new Map<string, CountryData>([
@@ -38,8 +37,8 @@ export const countriesMap = new Map<string, CountryData>([
     {
       zoom: 6,
       buttonCoordinates: [-85.43056901477354, -10.147133411380077],
-      labelCoordinates: [-74.43056901477354, -10.147133411380077],
-      flagCoordinates: [ 0, 0],
+      labelCoordinates: [-87.43056901477354, -10.147133411380077],
+      flagCoordinates: [-78.23056901477354, -7.147133411380077],
 
       cities: new Map([
         ["Lima", [-77.0431, -12.0467]],
@@ -51,10 +50,10 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 30,
-        height: 30
+        width: 25,
+        height: 25,
       },
-      component: Peru
+      component: Peru,
     },
   ],
   [
@@ -62,8 +61,8 @@ export const countriesMap = new Map<string, CountryData>([
     {
       zoom: 9,
       buttonCoordinates: [-67.17345714315186, 8.763468591418087],
-      labelCoordinates: [-73.07345714315186, 3.9163468591418087],
-      flagCoordinates: [ 0, 0],
+      labelCoordinates: [-87.07345714315186, 3.9163468591418087],
+      flagCoordinates: [-75.70345714315186, 5.4063468591418087],
 
       cities: new Map([
         ["Bogotá", [-74.0721, 4.711]],
@@ -76,10 +75,10 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 40,
-        height: 40
+        width: 25,
+        height: 25,
       },
-      component: Colombia
+      component: Colombia,
     },
   ],
   [
@@ -87,8 +86,8 @@ export const countriesMap = new Map<string, CountryData>([
     {
       zoom: 3.2,
       buttonCoordinates: [-25.17252777972014, -10.655474918772201],
-      labelCoordinates: [-53.17252777972014, -10.655474918772201],
-      flagCoordinates: [ 0, 0],
+      labelCoordinates: [-54.40252777972014, -6.885474918772201],
+      flagCoordinates: [-56.50252777972014, -8.655474918772201],
 
       cities: new Map([
         ["Brasília", [-47.9292, -15.7801]],
@@ -101,10 +100,10 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 40,
-        height: 40
+        width:25,
+        height: 25,
       },
-      component: Brazil
+      component: Brazil,
     },
   ],
   [
@@ -113,7 +112,7 @@ export const countriesMap = new Map<string, CountryData>([
       zoom: 30,
       buttonCoordinates: [-68.46185863870569, 20.885420716111305],
       labelCoordinates: [-70.46185863870569, 21.885420716111305],
-      flagCoordinates: [ 0, 0],
+      flagCoordinates: [-65.46185863870569, 25.885420716111305],
       cities: new Map([["Santo Domingo", [-69.9312, 18.4861]]]),
       returnStyles: {
         radius: 60,
@@ -121,9 +120,9 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 30,
-        height: 30
-      }, 
+        width: 25,
+        height: 25,
+      },
       component: DR,
     },
   ],

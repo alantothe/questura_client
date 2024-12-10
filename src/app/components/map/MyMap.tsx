@@ -1,4 +1,5 @@
 "use client";
+import { Inter } from "next/font/google";
 import { useState } from "react";
 import {
   ComposableMap,
@@ -6,15 +7,21 @@ import {
   Geography,
   Sphere,
   Marker,
+  Line,
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import { countriesMap } from "./data/countryData";
+import { Montserrat } from "next/font/google";
+import { geoInterpolate } from "d3-geo";
 
 const json = "/world-countries.json";
 type CityMarker = {
   name: string;
   coordinates: [number, number];
 };
+
+const inter = Inter({ subsets: ["latin"], weight: ["100"] });
+const montserrat = Montserrat({ subsets: ["latin"], weight: ["100"] });
 
 const MyMap = () => {
   const [currentCountry, setCurrentCountry] = useState<string | null>(null);
@@ -61,7 +68,7 @@ const MyMap = () => {
   };
 
   return (
-    <div className=" w-1/2 h-full">
+    <div className=" w-full h-full">
       <ComposableMap
         projection={"geoOrthographic"}
         projectionConfig={{
@@ -204,18 +211,65 @@ const MyMap = () => {
             </g>
           </Marker>
         ) : null}
-        {/* country labels .. not zoomed */}
+        {/* country labels & flags .. not zoomed */}
         {!isZoomed
           ? Array.from(countriesMap.entries()).map(([name, object]) => {
-            const Flag = object.component
-            return [
+              const Flag = object.component;
+              return [
+                <Marker
+                  key={`${name}-text`}
+                  coordinates={[
+                    object.labelCoordinates[0],
+                    object.labelCoordinates[1],
+                  ]}
+                >
+                  <text
+                    stroke="#8100ff"
+                    fill="#8100ff"
+                    fontSize="12"
+                    fontWeight="100"
+                    className={montserrat.className}
+                    style={{
+                      fontVariationSettings: "'wght' 100",
+                      paintOrder: "stroke",
+                      strokeWidth: "0.2",
+                    }}
+                    textAnchor="middle"
+                    dy=".3em"
+                  >
+                    {name}
+                  </text>
+                </Marker>,
 
+                <Marker
+                  key={`${name}-flag`}
+                  coordinates={[
+                    object.flagCoordinates[0],
+                    object.flagCoordinates[1],
+                  ]}
+                >
+                  <Flag
+                    key={`${name}-text`}
+                    width={object.flagStyles.width}
+                    height={object.flagStyles.height}
+                  />
+                </Marker>,
+                <Line
+                  key="test-line"
+                  from={[-80, 5]}
+                  to={[-80, 1]}
+                  stroke="#8100ff"
+                  strokeWidth={1}
+                />,
+              ];
+            })
+          : null}
+        {/* city labels .. zoomed */}
+        {isZoomed && currentCities
+          ? currentCities.map((city: CityMarker) => [
               <Marker
-                key={`${name}-text`}
-                coordinates={[
-                  object.labelCoordinates[0],
-                  object.labelCoordinates[1],
-                ]}
+                key={`${city.name}-text`}
+                coordinates={[city.coordinates[0], city.coordinates[1] - 1]}
               >
                 <text
                   stroke="#FFFFFF"
@@ -225,47 +279,27 @@ const MyMap = () => {
                   textAnchor="middle"
                   dy=".3em"
                 >
-                  {name}
+                  {city.name}
                 </text>
-             
               </Marker>,
-              <Marker              key={`${name}-flag`}
-              coordinates={[
-                object.labelCoordinates[0],
-                object.labelCoordinates[1]-1,
-              ]}>
-                 <Flag  key={`${name}-text`} width={object.flagStyles.width} height={object.flagStyles.height} />
-
-              </Marker>
-            ]})
+              <Marker
+                key={`${city.name}-circle`}
+                coordinates={city.coordinates}
+              >
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+              </Marker>,
+            ])
           : null}
-        {
-          isZoomed && currentCities
-            ? currentCities.map((city: CityMarker) => [
-                <Marker
-                  key={`${city.name}-text`}
-                  coordinates={[city.coordinates[0], city.coordinates[1] - 1]}
-                >
-                  <text
-                    stroke="#FFFFFF"
-                    fill="#000000"
-                    fontSize="16"
-                    fontWeight="bold"
-                    textAnchor="middle"
-                    dy=".3em"
-                  >
-                    {city.name}
-                  </text>
-                </Marker>,
-                <Marker
-                  key={`${city.name}-circle`}
-                  coordinates={city.coordinates}
-                >
-                  <circle r={8} fill="#1e1d28" />
-                </Marker>,
-              ])
-            : null
-        }
       </ComposableMap>
     </div>
   );
