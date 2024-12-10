@@ -1,5 +1,5 @@
 "use client";
-import { Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import { useState } from "react";
 import {
   ComposableMap,
@@ -11,7 +11,6 @@ import {
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import { countriesMap } from "./data/countryData";
-import { Montserrat } from "next/font/google";
 import MyLine from "./data/svg/lines/line"
 
 const json = "/world-countries.json";
