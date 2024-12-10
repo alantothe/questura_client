@@ -254,7 +254,7 @@ const MyMap = () => {
                     height={object.flagStyles.height}
                   />
                 </Marker>,
-           
+           //Don't use <Line/> make an svg and place and place the svg(line) on one coordinate (from and to will make it bend)
                   <Line
                   key={`test-line-${name}`}
                     from={[-81, 5]}
