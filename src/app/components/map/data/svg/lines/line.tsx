@@ -1,6 +1,6 @@
 const MyLine = () => {
   return (
-    <div>
+    <g>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
         <path
           d="M20,20 L100,20 L100,100"
@@ -25,7 +25,7 @@ const MyLine = () => {
           fill="none"
         />
       </svg>
-    </div>
+    </g>
   );
 };
 
