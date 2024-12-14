@@ -1,4 +1,3 @@
-//
 
 type styleProps = {
     width: number

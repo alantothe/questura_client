@@ -1,4 +1,5 @@
 "use client";
+import dynamic from 'next/dynamic';
 import { Inter, Montserrat } from "next/font/google";
 import { useState } from "react";
 import {
@@ -7,11 +8,15 @@ import {
   Geography,
   Sphere,
   Marker,
-  Line,
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import { countriesMap } from "./data/countryData";
 import MyLine from "./data/svg/lines/line"
+
+const DynamicSphere = dynamic(
+  () => import('react-simple-maps').then(mod => mod.Sphere),
+  { ssr: false }
+);
 
 const json = "/world-countries.json";
 type CityMarker = {
@@ -19,7 +24,6 @@ type CityMarker = {
   coordinates: [number, number];
 };
 
-const inter = Inter({ subsets: ["latin"], weight: ["100"] });
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["100"] });
 
 const MyMap = () => {
@@ -80,7 +84,9 @@ const MyMap = () => {
             <feGaussianBlur stdDeviation="1" />
           </filter>
         </defs>
-        <Sphere id="sphere" fill="#1B1B35" stroke="#000000" strokeWidth={2} />
+  
+        <DynamicSphere id="sphere" fill="#1B1B35" stroke="#000000" strokeWidth={2} />
+ 
         {/* base layer - always blurred when zoomed */}
         <Geographies geography={json}>
           {({ geographies }) =>
