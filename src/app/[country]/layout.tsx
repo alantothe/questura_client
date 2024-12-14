@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import NavBar from "../components/layout/NavBar";
-import Footer from "../components/layout/Footer";
+// import NavBar from "../components/layout/NavBar";
+// import Footer from "../components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Questura Tours",
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NavBar />
+        {/* <NavBar /> */}
         {children}
         {/* <Footer /> */}
       </body>

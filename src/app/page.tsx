@@ -1,4 +1,4 @@
-import MyMap from "./components/map/MyMap";
+import MyMap from "../features/map/MyMap";
 
 export default function Home() {
   return (
