@@ -41,7 +41,7 @@ const NavBar = () => {
             rel="noopener noreferrer"
             className="text-sm text-black underline sm:mr-4 mb-2 sm:mb-0 hidden sm:block"
           >
-            The Mentuition Network Home
+            The Questura Blog 
           </a>
         </Link>
 
