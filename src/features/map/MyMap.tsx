@@ -1,20 +1,19 @@
 "use client";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import { Inter, Montserrat } from "next/font/google";
 import { useState } from "react";
 import {
   ComposableMap,
   Geographies,
   Geography,
-  Sphere,
   Marker,
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import { countriesMap } from "./data/countryData";
-import MyLine from "./data/svg/lines/line"
+import MyLine from "./data/svg/lines/line";
 
 const DynamicSphere = dynamic(
-  () => import('react-simple-maps').then(mod => mod.Sphere),
+  () => import("react-simple-maps").then((mod) => mod.Sphere),
   { ssr: false }
 );
 
@@ -84,9 +83,14 @@ const MyMap = () => {
             <feGaussianBlur stdDeviation="1" />
           </filter>
         </defs>
-  
-        <DynamicSphere id="sphere" fill="#1B1B35" stroke="#000000" strokeWidth={2} />
- 
+
+        <DynamicSphere
+          id="sphere"
+          fill="#1B1B35"
+          stroke="#000000"
+          strokeWidth={2}
+        />
+
         {/* base layer - always blurred when zoomed */}
         <Geographies geography={json}>
           {({ geographies }) =>
@@ -216,6 +220,7 @@ const MyMap = () => {
             </g>
           </Marker>
         ) : null}
+
         {/* country labels & flags .. not zoomed */}
         {!isZoomed
           ? Array.from(countriesMap.entries()).map(([name, object]) => {
@@ -259,12 +264,14 @@ const MyMap = () => {
                     height={object.flagStyles.height}
                   />
                 </Marker>,
-           //Don't use <Line/> make an svg and place and place the svg(line) on one coordinate (from and to will make it bend)
- 
-                    <Marker key={`test-line-marker-outer-${name}`} coordinates={[-81, 3.5]}>
-                   <MyLine/>
-                  </Marker>
-               
+                //Don't use <Line/> make an svg and place and place the svg(line) on one coordinate (from and to will make it bend)
+
+                <Marker
+                  key={`test-line-marker-outer-${name}`}
+                  coordinates={object.lineCoordinates}
+                >
+                  <MyLine />
+                </Marker>,
               ];
             })
           : null}
