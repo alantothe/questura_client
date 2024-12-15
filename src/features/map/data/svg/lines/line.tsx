@@ -41,7 +41,7 @@ const MyLine = ({ x = 0, y = 0 }) => {
         <circle
           cx="-40"
           cy="-10"
-          r="4"
+          r="3"
           stroke="#8100ff"
           strokeWidth=".25"
           fill="none"
