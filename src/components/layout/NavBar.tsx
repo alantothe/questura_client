@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FiMenu, FiX } from "react-icons/fi";
 import { notFound } from "next/navigation";
+import Image from "next/image"
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgSize, setImgSize] = useState("h-12");
