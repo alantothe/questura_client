@@ -1,50 +1,56 @@
+// type LineStyles = {
+//   startingCircleRadius : number
+//   lineOneLength:
+// }
+
 const MyLine = () => {
   return (
+    // <g transform="rotate(90, 60, 60)">
     <g>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 ">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3200">
         <circle
-          cx="20"
-          cy="20"
-          r="5"
+          cx="120"
+          cy="120"
+          r="1"
           stroke="#8100ff"
           strokeWidth=".25"
           fill="#8100ff"
         />
 
-        {/* first line - The "L" shape */}
+        {/* first line - the "L" shape */}
         <path
-           d="M20,20 L100,20"
+          d="M120,120 L95,120"
           stroke="#8100ff"
           strokeWidth=".25"
           fill="none"
         />
         {/* second Line - adjustable */}
         <path
-          d="M100,20 L100,100" // You can change these numbers to move the line
+          d="M95,120 L80,110"
           stroke="#8100ff"
           strokeWidth=".25"
           fill="none"
         />
-        {/* horizontal line - at circle */}
+        {/* vertical line - at circle */}
         <path
-          d="M80,100 L120,100"
+          d={`M80,100 L80,120`}
           stroke="#8100ff"
           strokeWidth=".25"
           fill="none"
         />
 
         <circle
-          cx="100"
-          cy="100"
-          r="5"
+          cx="80"
+          cy="110"
+          r="1"
           stroke="#8100ff"
           strokeWidth=".25"
           fill="#8100ff"
         />
         <circle
-          cx="100"
-          cy="100"
-          r="10"
+          cx="80"
+          cy="110"
+          r="4"
           stroke="#8100ff"
           strokeWidth=".25"
           fill="none"
