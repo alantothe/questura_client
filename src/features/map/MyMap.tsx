@@ -39,7 +39,7 @@ const MyMap = () => {
   const [isZoomed, setIsZoomed] = useState(false);
   const [position, setPosition] = useState({
     coordinates: [65, 10],
-    zoom: 1.5,
+    zoom: 1.8,
   });
 
   const handleCountryClick = (country: any) => {
@@ -70,8 +70,9 @@ const MyMap = () => {
   };
 
   return (
-    <div className=" w-full h-full">
+    <div className="flex justify-center">
       <ComposableMap
+        style={{ width: "900px", height: "900px",  }}
         projection={"geoOrthographic"}
         projectionConfig={{
           scale: 200 * position.zoom,

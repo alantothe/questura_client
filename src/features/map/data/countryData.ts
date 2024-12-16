@@ -28,13 +28,13 @@ type CountryData = {
   flagStyles: {
     width: number;
     height: number;
-  },
+  };
   // lineCoordinates : {
   //   parallel: {
   //     from : [number, number]
   //     to: [number, number]
-  //   } 
-     
+  //   }
+
   // }
   component: React.ComponentType<styleProps>;
 };
@@ -45,9 +45,9 @@ export const countriesMap = new Map<string, CountryData>([
     {
       zoom: 6,
       buttonCoordinates: [-85.43056901477354, -10.147133411380077],
-      labelCoordinates: [-87.43056901477354, -10.147133411380077],
+      labelCoordinates: [-90.83056901477354, -7.147133411380077],
       flagCoordinates: [-78.23056901477354, -7.147133411380077],
-      lineCoordinates: [-86.58345714315186, -7.3063468591418087],
+      lineCoordinates: [-86.99990000000000, -4.3063468591418087],
 
       cities: new Map([
         ["Lima", [-77.0431, -12.0467]],
@@ -59,8 +59,8 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 25,
-        height: 25,
+        width: 30,
+        height: 30,
       },
       component: Peru,
     },
@@ -70,7 +70,7 @@ export const countriesMap = new Map<string, CountryData>([
     {
       zoom: 9,
       buttonCoordinates: [-67.17345714315186, 8.763468591418087],
-      labelCoordinates: [-91.40345714315186, 6.0000000000000000],
+      labelCoordinates: [-91.40345714315186, 6.0],
       flagCoordinates: [-75.70345714315186, 5.4063468591418087],
       lineCoordinates: [-84.58345714315186, 8.3063468591418087],
 
@@ -85,8 +85,8 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 25,
-        height: 25,
+        width: 30,
+        height: 30,
       },
       component: Colombia,
     },
@@ -111,8 +111,8 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width:25,
-        height: 25,
+        width: 30,
+        height: 30,
       },
       component: Brazil,
     },
@@ -132,8 +132,8 @@ export const countriesMap = new Map<string, CountryData>([
         fontSize: 32,
       },
       flagStyles: {
-        width: 25,
-        height: 25,
+        width: 30,
+        height: 30,
       },
       component: DR,
     },
